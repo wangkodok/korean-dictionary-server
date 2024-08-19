@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-const externalApiUrl = `https://stdict.korean.go.kr/api/search.do?certkey_no=6715&key=${API_KEY}&type_search=search&req_type=json&q=나무`;
+const externalApiUrl = `https://stdict.korean.go.kr/api/search.do?certkey_no=6715&key=${API_KEY}&type_search=search&req_type=json&q=`;
 console.log("External API URL:", externalApiUrl);
 
 app.get("/", (req, res) => {
