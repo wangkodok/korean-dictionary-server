@@ -1,6 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
+require("dotenv").config(); // node에서 .env 파일 이용하려면 dotenv 설치하고 코드 작성
 
 const app = express();
 const port = 3000;
