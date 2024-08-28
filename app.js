@@ -35,7 +35,7 @@ app.get("/fetch-data", (req, res) => {
   }
 });
 
-app.post("/api/search", async (req, res) => {
+app.post("/post-search", async (req, res) => {
   queryResult = req.body.queryData; // React에서 보낸 검색어
   // console.log(req.body.queryData);
   console.log(queryResult);
@@ -50,7 +50,7 @@ app.post("/api/search", async (req, res) => {
   }
 });
 
-app.get("/api/search", (req, res) => {
+app.get("/get-search", (req, res) => {
   console.log(queryResult, "get");
   try {
     setTimeout(() => {
