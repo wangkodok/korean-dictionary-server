@@ -14,6 +14,8 @@ app.use(express.static("public"));
 
 const externalApiUrl = `https://stdict.korean.go.kr/api/search.do?key=${API_KEY}&type_search=search&req_type=json&q=`;
 
+let query = null;
+
 app.get("/", (req, res) => {
   res.send("메인");
 });
@@ -34,16 +36,29 @@ app.get("/fetch-data", (req, res) => {
 });
 
 app.post("/api/search", async (req, res) => {
-  const query = req.body.queryData; // React에서 보낸 검색어
+  query = req.body.queryData; // React에서 보낸 검색어
   // console.log(req.body.queryData);
 
+  // try {
+  //   const response = await axios.get(`${externalApiUrl}${query}`);
+  //   res.json(response.data); // json 변환
+  //   console.log(response.data.channel.item, "리액트에서 보낸 값");
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).json({ error: "Failed to fetch data from API" });
+  // }
+});
+
+app.get("/api/search", (req, res) => {
   try {
-    const response = await axios.get(`${externalApiUrl}${query}`);
-    res.json(response.data); // json 변환
-    console.log(response.data.channel.item, "리액트에서 보낸 값");
+    setTimeout(() => {
+      // console.log("External API URL:", externalApiUrl);
+      const response = axios.get(`${externalApiUrl}${query}`);
+      // console.log(response.data.channel.item);
+      res.json(response.data);
+    }, 0);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to fetch data from API" });
+    res.status(500).send("Error fetching data from external API");
   }
 });
 
