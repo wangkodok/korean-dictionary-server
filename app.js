@@ -14,7 +14,7 @@ app.use(express.static("public"));
 
 const externalApiUrl = `https://stdict.korean.go.kr/api/search.do?key=${API_KEY}&type_search=search&req_type=json&q=`;
 
-let query = null;
+let queryResult = null;
 
 app.get("/", (req, res) => {
   res.send("메인");
@@ -36,12 +36,12 @@ app.get("/fetch-data", (req, res) => {
 });
 
 app.post("/api/search", async (req, res) => {
-  query = req.body.queryData; // React에서 보낸 검색어
+  queryResult = req.body.queryData; // React에서 보낸 검색어
   // console.log(req.body.queryData);
-  console.log(query);
+  console.log(queryResult);
 
   try {
-    const response = await axios.get(`${externalApiUrl}${query}`);
+    const response = await axios.get(`${externalApiUrl}${queryResult}`);
     res.json(response.data); // json 변환
     console.log(response.data.channel.item, "리액트에서 보낸 값");
   } catch (error) {
@@ -51,11 +51,11 @@ app.post("/api/search", async (req, res) => {
 });
 
 app.get("/api/search", (req, res) => {
-  console.log(query, "get");
+  console.log(queryResult, "get");
   try {
     setTimeout(() => {
       // console.log("External API URL:", externalApiUrl);
-      const response = axios.get(`${externalApiUrl}${query}`);
+      const response = axios.get(`${externalApiUrl}${queryResult}`);
       // console.log(response.data.channel.item);
       res.json(response.data);
     }, 0);
