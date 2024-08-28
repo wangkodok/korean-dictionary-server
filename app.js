@@ -38,18 +38,20 @@ app.get("/fetch-data", (req, res) => {
 app.post("/api/search", async (req, res) => {
   query = req.body.queryData; // React에서 보낸 검색어
   // console.log(req.body.queryData);
+  console.log(query);
 
-  // try {
-  //   const response = await axios.get(`${externalApiUrl}${query}`);
-  //   res.json(response.data); // json 변환
-  //   console.log(response.data.channel.item, "리액트에서 보낸 값");
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).json({ error: "Failed to fetch data from API" });
-  // }
+  try {
+    const response = await axios.get(`${externalApiUrl}${query}`);
+    res.json(response.data); // json 변환
+    console.log(response.data.channel.item, "리액트에서 보낸 값");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch data from API" });
+  }
 });
 
 app.get("/api/search", (req, res) => {
+  console.log(query, "get");
   try {
     setTimeout(() => {
       // console.log("External API URL:", externalApiUrl);
