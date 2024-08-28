@@ -17,14 +17,16 @@ app.get("/", (req, res) => {
   res.send("메인");
 });
 
-app.get("/fetch-data", async (req, res) => {
+app.get("/fetch-data", (req, res) => {
   const { query } = req.query;
 
   try {
-    // console.log("External API URL:", externalApiUrl);
-    const response = await axios.get(`${externalApiUrl}${query}`);
-    // console.log(response.data.channel.item);
-    res.json(response.data);
+    setTimeout(() => {
+      // console.log("External API URL:", externalApiUrl);
+      const response = axios.get(`${externalApiUrl}${query}`);
+      // console.log(response.data.channel.item);
+      res.json(response.data);
+    }, 0);
   } catch (error) {
     res.status(500).send("Error fetching data from external API");
   }
